@@ -31,21 +31,43 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  intl: ^0.20.2
+  # UI & Icons
+  cupertino_icons: ^1.0.8  # iOS style icons
+  intl: ^0.20.2            # Date formatting & localization
+  
+  # Firebase Services (Backend & Cloud Functions)
+  firebase_core: ^4.0.0           # Firebase initialization
+  firebase_auth: ^6.0.1           # User authentication & login
+  cloud_firestore: ^6.0.0         # Cloud database for synced transactions
+  cloud_functions: ^6.0.0         # AI parsing & chat functionality
+  
+  # State Management (Clean Architecture)
+  flutter_bloc: ^9.1.1    # BLoC pattern for state management
+  equatable: ^2.0.7        # Value equality for BLoC states
+  
+  # Local Database (Offline Storage)
+  floor: ^1.5.0           # SQLite ORM for local transactions & cache
+  sqflite: ^2.4.2         # SQLite database engine
+  
+  # Network & Connectivity
+  http: ^1.5.0                    # HTTP requests (if needed)
+  connectivity_plus: ^6.1.5       # Network status monitoring
+  
+  # Security (Financial Data Protection)
+  flutter_secure_storage: ^9.2.4  # Encrypted storage for tokens & keys
+  local_auth: ^2.3.0              # Biometric authentication
+  crypto: ^3.0.6                  # Data encryption utilities
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  # Code Quality & Linting
+  flutter_lints: ^5.0.0        # Dart/Flutter linting rules
+  
+  # Code Generation (Floor Database)
+  floor_generator: ^1.5.0      # Generates Floor database code
+  build_runner: ^2.5.4         # Code generation runner
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
