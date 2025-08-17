@@ -71,6 +71,13 @@ dev_dependencies:
   floor_generator: ^1.5.0      # Generates Floor database code
   build_runner: ^2.5.4         # Code generation runner
 
+  # Testing & Mocks
+  mockito: ^5.4.5
+  bloc_test: ^10.0.0
+  mocktail: ^1.0.4
+  fake_cloud_firestore: ^4.0.0
+  firebase_auth_mocks: ^0.15.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
