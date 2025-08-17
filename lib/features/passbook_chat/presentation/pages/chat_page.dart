@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/navigation/main_navigation.dart';
 
-class ChatContent extends StatelessWidget {
-  const ChatContent({super.key});
+class ChatPage extends StatelessWidget {
+  const ChatPage({super.key});
 
   @override
   Widget build(BuildContext context) {

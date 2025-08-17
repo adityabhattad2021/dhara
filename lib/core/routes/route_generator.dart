@@ -21,7 +21,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => RouteGuard.guardRoute(
             context: context,
-            child: const DashboardContent(),
+            child: const DashboardPage(),
             routeName: AppRoutes.dashboard,
           ),
           settings: settings,
@@ -51,7 +51,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => RouteGuard.guardRoute(
             context: context,
-            child: const ChatContent(),
+            child: const ChatPage(),
             routeName: AppRoutes.passbookChat,
           ),
           settings: settings,
@@ -61,7 +61,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => RouteGuard.guardRoute(
             context: context,
-            child: const SettingsContent(),
+            child: const SettingsPage(),
             routeName: AppRoutes.settings,
           ),
           settings: settings,

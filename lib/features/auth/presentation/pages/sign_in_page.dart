@@ -62,53 +62,57 @@ class SignInPage extends StatelessWidget {
                   builder: (context, state) {
                     final isLoading = state is AuthLoading;
 
-                    return ElevatedButton.icon(
-                      onPressed: isLoading
-                          ? null
-                          : () {
-                              context.read<AuthBloc>().add(
-                                const AuthSignInWithGoogleRequested(),
-                              );
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black87,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(color: Colors.grey),
+                    return SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: isLoading
+                            ? null
+                            : () {
+                                context.read<AuthBloc>().add(
+                                  const AuthSignInWithGoogleRequested(),
+                                );
+                              },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black87,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(color: Colors.grey),
+                          ),
+                          elevation: 2,
                         ),
-                        elevation: 2,
-                      ),
-                      icon: isLoading
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.deepPurple,
+                        icon: isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.deepPurple,
+                                  ),
                                 ),
+                              )
+                            : const Icon(
+                                Icons.login,
+                                size: 20,
+                                color: Colors.deepPurple,
                               ),
-                            )
-                          : Image.network(
-                              'https://developers.google.com/identity/images/g-logo.png',
-                              height: 20,
-                              width: 20,
+                        label: Flexible(
+                          child: Text(
+                            isLoading ? 'Signing In...' : 'Sign in with Google',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
                             ),
-                      label: Text(
-                        isLoading ? 'Signing In...' : 'Sign in with Google',
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
                     );
                   },
                 ),
-
                 const SizedBox(height: 24),
-
                 // Privacy notice
                 const Text(
                   'By signing in, you agree to our Terms of Service and Privacy Policy',
