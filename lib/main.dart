@@ -10,7 +10,6 @@ import 'features/auth/domain/usecases/get_current_user.dart';
 import 'features/auth/domain/usecases/sign_in_with_google.dart';
 import 'features/auth/domain/usecases/sign_out.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
-import 'features/auth/presentation/pages/auth_wrapper.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/app_routes.dart';
 
@@ -36,7 +35,6 @@ class DharaApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: AppRoutes.signIn,
-        home: const AuthWrapper(),
       ),
     );
   }

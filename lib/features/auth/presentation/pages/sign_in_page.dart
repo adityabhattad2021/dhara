@@ -1,3 +1,4 @@
+import 'package:dhara/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/auth_bloc.dart';
@@ -13,6 +14,8 @@ class SignInPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
+          print('Sign In Page; ####`#################');
+          print(state);
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -20,6 +23,9 @@ class SignInPage extends StatelessWidget {
                 backgroundColor: Colors.red,
               ),
             );
+          }
+          if (state is AuthAuthenticated) {
+            Navigator.of(context).pushReplacementNamed(AppRoutes.dashboard);
           }
         },
         child: SafeArea(
@@ -98,15 +104,13 @@ class SignInPage extends StatelessWidget {
                                 size: 20,
                                 color: Colors.deepPurple,
                               ),
-                        label: Flexible(
-                          child: Text(
-                            isLoading ? 'Signing In...' : 'Sign in with Google',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                        label: Text(
+                          isLoading ? 'Signing In...' : 'Sign in with Google',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     );
