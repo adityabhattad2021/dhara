@@ -16,6 +16,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   StreamSubscription<User?>? _authStateSubscription;
 
+  // TODO: Implement reactive authentication using authStateChanges stream
+  // 1. Add AuthRepository parameter to constructor
+  // 2. Replace manual getCurrentUser() calls with stream subscription
+  // 3. Listen to authRepository.authStateChanges in constructor
+  // 4. Automatically emit AuthAuthenticated/AuthUnauthenticated based on stream
+  // 5. Remove AuthUserChanged event as stream handles state changes
+  // Benefits: Real-time auth updates, handles token refresh, multi-device sync
+
   AuthBloc({
     required this.signInWithGoogle,
     required this.signOut,
