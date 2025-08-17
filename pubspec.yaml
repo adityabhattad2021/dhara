@@ -38,12 +38,14 @@ dependencies:
   # Firebase Services (Backend & Cloud Functions)
   firebase_core: ^4.0.0           # Firebase initialization
   firebase_auth: ^6.0.1           # User authentication & login
+  google_sign_in: ^6.2.1          # Google authentication
   cloud_firestore: ^6.0.0         # Cloud database for synced transactions
   cloud_functions: ^6.0.0         # AI parsing & chat functionality
   
   # State Management (Clean Architecture)
   flutter_bloc: ^9.1.1    # BLoC pattern for state management
   equatable: ^2.0.7        # Value equality for BLoC states
+  dartz: ^0.10.1           # Functional programming (Either, Option)
   
   # Local Database (Offline Storage)
   floor: ^1.5.0           # SQLite ORM for local transactions & cache
