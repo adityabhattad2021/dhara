@@ -10,6 +10,7 @@ import 'features/auth/domain/usecases/get_current_user.dart';
 import 'features/auth/domain/usecases/sign_in_with_google.dart';
 import 'features/auth/domain/usecases/sign_out.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/auth/presentation/bloc/auth_event.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/app_routes.dart';
 
@@ -34,7 +35,7 @@ class DharaApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
-        initialRoute: AppRoutes.signIn,
+        initialRoute: AppRoutes.dashboard,
       ),
     );
   }
@@ -59,10 +60,15 @@ class DharaApp extends StatelessWidget {
     final getCurrentUser = GetCurrentUser(authRepository);
 
     // Create and return BLoC
-    return AuthBloc(
+    final authBloc = AuthBloc(
       signInWithGoogle: signInWithGoogle,
       signOut: signOut,
       getCurrentUser: getCurrentUser,
     );
+
+    // Trigger initial authentication check
+    authBloc.add(const AuthStarted());
+    
+    return authBloc;
   }
 }

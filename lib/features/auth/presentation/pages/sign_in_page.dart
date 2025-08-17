@@ -14,8 +14,6 @@ class SignInPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          print('Sign In Page; ####`#################');
-          print(state);
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
