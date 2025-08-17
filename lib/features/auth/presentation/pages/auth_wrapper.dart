@@ -4,6 +4,7 @@ import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
 import 'sign_in_page.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
@@ -17,17 +18,21 @@ class AuthWrapper extends StatelessWidget {
           context.read<AuthBloc>().add(const AuthStarted());
           return const _LoadingScreen();
         }
-        
+
         if (state is AuthLoading) {
           return const _LoadingScreen();
         }
-        
+
         if (state is AuthAuthenticated) {
-          // User is signed in - navigate to dashboard
-          // For now, show a simple welcome screen
-          return _WelcomeScreen(user: state.user);
+          // User is signed in - navigate to dashboard using our routing system
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            Navigator.of(
+              context,
+            ).pushNamedAndRemoveUntil(AppRoutes.dashboard, (route) => false);
+          });
+          return const _LoadingScreen();
         }
-        
+
         // AuthUnauthenticated or AuthError
         return const SignInPage();
       },
@@ -57,72 +62,7 @@ class _LoadingScreen extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               'Loading...',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _WelcomeScreen extends StatelessWidget {
-  final dynamic user;
-  
-  const _WelcomeScreen({required this.user});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.read<AuthBloc>().add(const AuthSignOutRequested());
-            },
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.check_circle,
-              size: 80,
-              color: Colors.green,
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Welcome to Dhara!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Hello, ${user.displayName ?? user.email}',
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 32),
-            const Text(
-              'Dashboard and expense tracking features will be implemented next!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
           ],
         ),

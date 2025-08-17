@@ -22,22 +22,30 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource {
   Future<UserModel> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-      
+
       if (googleUser == null) {
-        throw const AuthException('google-sign-in-cancelled', 'Google sign-in was cancelled');
+        throw const AuthException(
+          'google-sign-in-cancelled',
+          'Google sign-in was cancelled',
+        );
       }
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      final UserCredential userCredential = await firebaseAuth.signInWithCredential(credential);
-      
+      final UserCredential userCredential = await firebaseAuth
+          .signInWithCredential(credential);
+
       if (userCredential.user == null) {
-        throw const AuthException('sign-in-failed', 'Failed to sign in with Google');
+        throw const AuthException(
+          'sign-in-failed',
+          'Failed to sign in with Google',
+        );
       }
 
       return UserModel.fromFirebaseUser(userCredential.user!);
@@ -51,12 +59,12 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource {
   @override
   Future<void> signOut() async {
     try {
-      await Future.wait([
-        firebaseAuth.signOut(),
-        googleSignIn.signOut(),
-      ]);
+      await Future.wait([firebaseAuth.signOut(), googleSignIn.signOut()]);
     } catch (e) {
-      throw AuthException('sign-out-failed', 'Failed to sign out: ${e.toString()}');
+      throw AuthException(
+        'sign-out-failed',
+        'Failed to sign out: ${e.toString()}',
+      );
     }
   }
 
@@ -69,7 +77,10 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource {
       }
       return null;
     } catch (e) {
-      throw AuthException('get-user-failed', 'Failed to get current user: ${e.toString()}');
+      throw AuthException(
+        'get-user-failed',
+        'Failed to get current user: ${e.toString()}',
+      );
     }
   }
 

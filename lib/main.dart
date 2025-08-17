@@ -11,6 +11,8 @@ import 'features/auth/domain/usecases/sign_in_with_google.dart';
 import 'features/auth/domain/usecases/sign_out.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/pages/auth_wrapper.dart';
+import 'core/routes/route_generator.dart';
+import 'core/routes/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,16 +25,18 @@ class DharaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dhara - Where money flows',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => _createAuthBloc(),
-        child: const AuthWrapper(),
+    return BlocProvider(
+      create: (context) => _createAuthBloc(),
+      child: MaterialApp(
+        title: 'Dhara - Where money flows',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        initialRoute: AppRoutes.signIn,
+        home: const AuthWrapper(),
       ),
     );
   }

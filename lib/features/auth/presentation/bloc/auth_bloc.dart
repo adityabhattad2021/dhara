@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithGoogle signInWithGoogle;
   final SignOut signOut;
   final GetCurrentUser getCurrentUser;
-  
+
   StreamSubscription<User?>? _authStateSubscription;
 
   AuthBloc({
@@ -27,7 +27,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthUserChanged>(_onUserChanged);
   }
 
-  Future<void> _onAuthStarted(AuthStarted event, Emitter<AuthState> emit) async {
+  Future<void> _onAuthStarted(
+    AuthStarted event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
 
     final result = await getCurrentUser(const NoParams());
@@ -52,11 +55,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final result = await signInWithGoogle(const NoParams());
     result.fold(
       (failure) => emit(AuthError((failure as AuthFailure).message)),
-      (user) => emit(AuthAuthenticated(user))
+      (user) => emit(AuthAuthenticated(user)),
     );
   }
 
-  Future<void> _onSignOutRequested(AuthSignOutRequested event, Emitter<AuthState> emit) async {
+  Future<void> _onSignOutRequested(
+    AuthSignOutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
     emit(const AuthLoading());
 
     final result = await signOut(const NoParams());
@@ -66,7 +72,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> _onUserChanged(AuthUserChanged event, Emitter<AuthState> emit) async {
+  Future<void> _onUserChanged(
+    AuthUserChanged event,
+    Emitter<AuthState> emit,
+  ) async {
     final result = await getCurrentUser(const NoParams());
     result.fold(
       (failure) => emit(AuthError((failure as AuthFailure).message)),

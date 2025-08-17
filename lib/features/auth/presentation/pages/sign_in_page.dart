@@ -36,7 +36,7 @@ class SignInPage extends StatelessWidget {
                   color: Colors.deepPurple,
                 ),
                 const SizedBox(height: 24),
-                
+
                 // App Title
                 const Text(
                   'Dhara',
@@ -48,23 +48,20 @@ class SignInPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                
+
                 // Subtitle
                 const Text(
                   'Where Money Flows.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 const SizedBox(height: 48),
-                
+
                 // Sign In Button
                 BlocBuilder<AuthBloc, AuthState>(
                   builder: (context, state) {
                     final isLoading = state is AuthLoading;
-                    
+
                     return ElevatedButton.icon(
                       onPressed: isLoading
                           ? null
@@ -89,7 +86,9 @@ class SignInPage extends StatelessWidget {
                               height: 20,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation<Color>(Colors.deepPurple),
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Colors.deepPurple,
+                                ),
                               ),
                             )
                           : Image.network(
@@ -107,17 +106,14 @@ class SignInPage extends StatelessWidget {
                     );
                   },
                 ),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Privacy notice
                 const Text(
                   'By signing in, you agree to our Terms of Service and Privacy Policy',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),

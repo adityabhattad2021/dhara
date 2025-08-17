@@ -17,7 +17,9 @@ class AuthRepositoryImpl implements AuthRepository {
     } on AuthException catch (e) {
       return Left(AuthFailure(message: e.message));
     } catch (e) {
-      return Left(AuthFailure(message: 'Unexpected error occurred: ${e.toString()}'));
+      return Left(
+        AuthFailure(message: 'Unexpected error occurred: ${e.toString()}'),
+      );
     }
   }
 
@@ -41,7 +43,9 @@ class AuthRepositoryImpl implements AuthRepository {
     } on AuthException catch (e) {
       return Left(AuthFailure(message: e.message));
     } catch (e) {
-      return Left(AuthFailure(message: 'Failed to get current user: ${e.toString()}'));
+      return Left(
+        AuthFailure(message: 'Failed to get current user: ${e.toString()}'),
+      );
     }
   }
 
