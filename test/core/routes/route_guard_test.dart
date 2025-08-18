@@ -47,17 +47,15 @@ void main() {
         child: MaterialApp(
           routes: {
             AppRoutes.signIn: (context) => const SignInPage(),
-            AppRoutes.dashboard: (context) => const Scaffold(body: Text('Dashboard')),
-          },
-          home: Builder(
-            builder: (context) => Scaffold(
+            '/test': (context) => Scaffold(
               body: RouteGuard.guardRoute(
                 context: context,
                 child: child,
                 routeName: routeName,
               ),
             ),
-          ),
+          },
+          initialRoute: '/test',
         ),
       );
     }
@@ -92,29 +90,29 @@ void main() {
         expect(find.text('Protected Content'), findsOneWidget);
       });
 
-      testWidgets('should show sign-in page when unauthenticated and accessing protected route', (tester) async {
+      testWidgets('should show loading guard when unauthenticated and accessing protected route', (tester) async {
         // Set unauthenticated state
         authBloc.emit(const AuthUnauthenticated());
 
         await tester.pumpWidget(makeTestableWidget(testWidget, AppRoutes.dashboard));
         await tester.pump();
 
-        // Should show sign-in page instead of protected content
-        expect(find.text('Dhara'), findsOneWidget);
-        expect(find.text('Where Money Flows.'), findsOneWidget);
+        // Should show loading guard instead of protected content
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.text('Checking authentication...'), findsOneWidget);
         expect(find.byKey(const Key('test_child')), findsNothing);
       });
 
-      testWidgets('should show sign-in page when auth error and accessing protected route', (tester) async {
+      testWidgets('should show loading guard when auth error and accessing protected route', (tester) async {
         // Set error state
         authBloc.emit(const AuthError('Authentication failed'));
 
         await tester.pumpWidget(makeTestableWidget(testWidget, AppRoutes.dashboard));
         await tester.pump();
 
-        // Should show sign-in page instead of protected content
-        expect(find.text('Dhara'), findsOneWidget);
-        expect(find.text('Where Money Flows.'), findsOneWidget);
+        // Should show loading guard instead of protected content
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.text('Checking authentication...'), findsOneWidget);
         expect(find.byKey(const Key('test_child')), findsNothing);
       });
 
@@ -208,7 +206,7 @@ void main() {
         // Change to unauthenticated
         authBloc.emit(const AuthUnauthenticated());
         await tester.pump();
-        expect(find.text('Dhara'), findsOneWidget); // Sign in page
+        expect(find.text('Checking authentication...'), findsOneWidget); // Loading guard
         expect(find.byKey(const Key('protected_content')), findsNothing);
       });
     });

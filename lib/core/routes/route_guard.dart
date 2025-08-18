@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/bloc/auth_state.dart';
-import '../../features/auth/presentation/pages/sign_in_page.dart';
 import 'app_routes.dart';
 
 class RouteGuard {
@@ -34,7 +33,7 @@ class RouteGuard {
                 context,
               ).pushNamedAndRemoveUntil(AppRoutes.signIn, (route) => false);
             });
-            return const SignInPage();
+            return const _LoadingGuard();
           } else {
             return const _LoadingGuard();
           }

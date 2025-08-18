@@ -12,65 +12,79 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.signIn:
-        return MaterialPageRoute(
-          builder: (_) => const SignInPage(),
+        return PageRouteBuilder(
           settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => const SignInPage(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       case AppRoutes.dashboard:
-        return MaterialPageRoute(
-          builder: (context) => RouteGuard.guardRoute(
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
             child: const DashboardPage(),
             routeName: AppRoutes.dashboard,
           ),
-          settings: settings,
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       case AppRoutes.addExpense:
-        return MaterialPageRoute(
-          builder: (context) => RouteGuard.guardRoute(
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
             child: const AddExpenseContent(),
             routeName: AppRoutes.addExpense,
           ),
-          settings: settings,
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       case AppRoutes.allTransactions:
-        return MaterialPageRoute(
-          builder: (context) => RouteGuard.guardRoute(
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
             child: const AllTransactionsPage(),
             routeName: AppRoutes.allTransactions,
           ),
-          settings: settings,
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       case AppRoutes.passbookChat:
-        return MaterialPageRoute(
-          builder: (context) => RouteGuard.guardRoute(
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
             child: const ChatPage(),
             routeName: AppRoutes.passbookChat,
           ),
-          settings: settings,
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       case AppRoutes.settings:
-        return MaterialPageRoute(
-          builder: (context) => RouteGuard.guardRoute(
+        return PageRouteBuilder(
+          settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
             child: const SettingsPage(),
             routeName: AppRoutes.settings,
           ),
-          settings: settings,
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
 
       default:
-        return MaterialPageRoute(
-          builder: (_) => const _NotFoundPage(),
+        return PageRouteBuilder(
           settings: settings,
+          pageBuilder: (context, animation, secondaryAnimation) => const _NotFoundPage(),
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
         );
     }
   }
