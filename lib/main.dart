@@ -11,22 +11,41 @@ import 'features/auth/domain/usecases/sign_in_with_google.dart';
 import 'features/auth/domain/usecases/sign_out.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
+import 'features/expenses/data/database/app_database.dart';
+import 'features/expenses/data/datasources/expense_local_data_source.dart';
+import 'features/expenses/data/repositories/expense_repository_impl.dart';
+import 'features/expenses/domain/usecases/add_expense.dart';
+import 'features/expenses/domain/usecases/get_expenses.dart';
+import 'features/expenses/presentation/bloc/expense_bloc.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/app_routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const DharaApp());
+  
+  // Initialize database
+  final database = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  
+  runApp(DharaApp(database: database));
 }
 
 class DharaApp extends StatelessWidget {
-  const DharaApp({super.key});
+  final AppDatabase database;
+  
+  const DharaApp({super.key, required this.database});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => _createAuthBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => _createAuthBloc(),
+        ),
+        BlocProvider<ExpenseBloc>(
+          create: (context) => _createExpenseBloc(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Dhara - Where money flows',
         theme: ThemeData(
@@ -70,5 +89,24 @@ class DharaApp extends StatelessWidget {
     authBloc.add(const AuthStarted());
     
     return authBloc;
+  }
+
+  ExpenseBloc _createExpenseBloc() {
+    // Create data source
+    final expenseDao = database.expenseDao;
+    final expenseDataSource = ExpenseLocalDataSourceImpl(expenseDao: expenseDao);
+
+    // Create repository
+    final expenseRepository = ExpenseRepositoryImpl(localDataSource: expenseDataSource);
+
+    // Create use cases
+    final addExpense = AddExpense(expenseRepository);
+    final getExpenses = GetExpenses(expenseRepository);
+
+    // Create and return BLoC
+    return ExpenseBloc(
+      addExpense: addExpense,
+      getExpenses: getExpenses,
+    );
   }
 }

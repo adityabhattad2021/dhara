@@ -50,7 +50,7 @@ void main() {
             '/test': (context) => Scaffold(
               body: RouteGuard.guardRoute(
                 context: context,
-                child: child,
+                childBuilder: (userId) => child,
                 routeName: routeName,
               ),
             ),

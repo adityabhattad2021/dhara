@@ -19,14 +19,14 @@ class RouteGuard {
 
   static Widget guardRoute({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(String userId) childBuilder,
     required String routeName,
   }) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (isProtectedRoute(routeName)) {
           if (state is AuthAuthenticated) {
-            return child;
+            return childBuilder(state.user.id);
           } else if (state is AuthUnauthenticated || state is AuthError) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.of(
@@ -38,7 +38,7 @@ class RouteGuard {
             return const _LoadingGuard();
           }
         }
-        return child;
+        return childBuilder('');
       },
     );
   }

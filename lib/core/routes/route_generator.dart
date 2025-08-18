@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../features/auth/presentation/pages/sign_in_page.dart';
-import '../../features/dashboard/presentation/pages/all_transactions_page.dart';
-import '../../features/dashboard/presentation/pages/dashboard_page.dart';
-import '../../features/add_expense/presentation/pages/add_expense_page.dart';
+import '../../features/expenses/presentation/pages/all_transactions_page.dart';
+import '../../features/expenses/presentation/pages/dashboard_page.dart';
+import '../../features/expenses/presentation/pages/add_expense_page.dart';
 import '../../features/passbook_chat/presentation/pages/chat_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import 'app_routes.dart';
@@ -24,7 +24,7 @@ class RouteGenerator {
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
-            child: const DashboardPage(),
+            childBuilder: (userId) => DashboardPage(userId: userId),
             routeName: AppRoutes.dashboard,
           ),
           transitionDuration: Duration.zero,
@@ -36,7 +36,7 @@ class RouteGenerator {
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
-            child: const AddExpenseContent(),
+            childBuilder: (userId) => AddExpenseContent(userId: userId),
             routeName: AppRoutes.addExpense,
           ),
           transitionDuration: Duration.zero,
@@ -48,7 +48,7 @@ class RouteGenerator {
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
-            child: const AllTransactionsPage(),
+            childBuilder: (userId) => AllTransactionsContent(userId: userId),
             routeName: AppRoutes.allTransactions,
           ),
           transitionDuration: Duration.zero,
@@ -60,7 +60,7 @@ class RouteGenerator {
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
-            child: const ChatPage(),
+            childBuilder: (userId) => const ChatPage(),
             routeName: AppRoutes.passbookChat,
           ),
           transitionDuration: Duration.zero,
@@ -72,7 +72,7 @@ class RouteGenerator {
           settings: settings,
           pageBuilder: (context, animation, secondaryAnimation) => RouteGuard.guardRoute(
             context: context,
-            child: const SettingsPage(),
+            childBuilder: (userId) => const SettingsPage(),
             routeName: AppRoutes.settings,
           ),
           transitionDuration: Duration.zero,

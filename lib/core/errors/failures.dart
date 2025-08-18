@@ -25,3 +25,9 @@ class AuthFailure extends Failure {
 
   const AuthFailure({required this.message});
 }
+
+class DatabaseFailure extends Failure {
+  final String message;
+
+  const DatabaseFailure({this.message = 'Database error occurred'});
+}
